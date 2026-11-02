@@ -258,7 +258,7 @@ class PackCs2(private val cs2Dir: File, private val overrides: Cs2Overrides = Cs
         val bar = this.progress.begin(label, writable.size)
 
         writable.forEach { (id, script) ->
-            cache.write(CLIENTSCRIPT, id, script.bytes)
+            cache.write(CLIENTSCRIPT, id, script.archiveName, script.bytes)
             bar.step()
         }
 

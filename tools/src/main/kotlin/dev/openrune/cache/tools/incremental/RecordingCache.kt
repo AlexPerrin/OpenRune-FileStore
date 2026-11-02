@@ -28,6 +28,11 @@ internal class RecordingCache(private val delegate: Cache) : Cache by delegate {
         recordOutput(index, delegate.archiveId(index, archive), 0, data)
     }
 
+    override fun write(index: Int, archive: Int, name: String, data: ByteArray, xteas: IntArray?) {
+        recordOutput(index, archive, 0, data)
+        delegate.write(index, archive, name, data, xteas)
+    }
+
     override fun data(index: Int, archive: Int, file: Int, xtea: IntArray?): ByteArray? {
         if (trackReads) record?.cacheReads?.add(CacheTarget(index, archive, file))
         return delegate.data(index, archive, file, xtea)
