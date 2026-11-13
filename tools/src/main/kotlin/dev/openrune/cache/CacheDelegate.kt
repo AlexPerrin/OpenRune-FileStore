@@ -101,6 +101,12 @@ class CacheDelegate(val library: CacheLibrary) : Cache {
         library.put(index, archive, data, xteas)
     }
 
+    override fun write(index: Int, archive: Int, name: String, data: ByteArray, xteas: IntArray?) {
+        val table = library.index(index)
+        val hash = table.archive(archive, direct = true)?.hashName?.takeIf { it != 0 } ?: table.toHash(name)
+        table.add(archive, hash, xteas).add(0, data)
+    }
+
     override fun remove(index: Int, archive: Int, file: Int) {
         library.remove(index, archive, file)
     }

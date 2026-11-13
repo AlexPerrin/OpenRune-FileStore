@@ -62,6 +62,9 @@ interface Cache {
 
     fun write(index: Int, archive: String, data: ByteArray, xteas: IntArray? = null)
 
+    fun write(index: Int, archive: Int, name: String, data: ByteArray, xteas: IntArray? = null) =
+        write(index, archive, data, xteas)
+
     fun remove(index: Int, archive: Int, file: Int): Unit =
         throw UnsupportedOperationException("remove is not supported by ${this::class.simpleName}")
 
